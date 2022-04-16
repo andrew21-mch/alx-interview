@@ -1,30 +1,28 @@
 #!/usr/bin/python3
+"""Lockboxes Contains method that finds the keys to
+open other lockboxes
+"""
 
-"""
-    Determines whether a series of locked boxes can be opened
-"""
 
 def canUnlockAll(boxes):
     """
-    Determines whether a series of locked boxes can be opened
-    based on keys that can be attained.
-    Solution to the lockboxes problem
+    Function that determines if you can open all the lockboxes
+    Args:
+        boxes: list of lists of integers
+    Returns:
+        True if you can open all the lockboxes, False otherwise
     """
-    if (type(boxes)) is not list:
-        return False
-    elif (len(boxes)) == 0:
-        return False
+    unlocked = set()
 
-    for box in range(1, len(boxes) - 1):
-        boxes_checked = False
-        for index in range(len(boxes)):
-            boxes_checked = box in boxes[index] and box != index
-            if boxes_checked:
-                break
-        if boxes_checked is False:
-            return boxes_checked
-    return True
-
+    for index, box in enumerate(boxes):
+        if len(box) == 0 or index == 0:
+            unlocked.add(index)
+        for key in box:
+            if key < len(boxes) and key != index:
+                unlocked.add(key)
+        if len(unlocked) == len(boxes):
+            return True
+    return False
 
 boxes = [[1], [2], [3], [4], []]
 print(canUnlockAll(boxes))
