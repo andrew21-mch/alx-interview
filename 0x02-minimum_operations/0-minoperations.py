@@ -19,4 +19,3 @@ def minOperations(n):
             if n < i:
                 break
     return p
-print(minOperations(10))
